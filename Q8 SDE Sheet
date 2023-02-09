@@ -5,6 +5,7 @@ public:
         int n = ints.size(), ptr = 0;
         if(n<=1) return ints;
         vector<vector<int>> ret;
+        
         for(int i = 1; i < n; i++){
             if(ints[i][0] <= ints[ptr][1])
                 ints[ptr][1] = max(ints[i][1], ints[ptr][1]);
