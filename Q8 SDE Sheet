@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& ints) {
+        sort(ints.begin(), ints.end());
+        int n = ints.size(), ptr = 0;
+        if(n<=1) return ints;
+        vector<vector<int>> ret;
+        for(int i = 1; i < n; i++){
+            if(ints[i][0] <= ints[ptr][1])
+                ints[ptr][1] = max(ints[i][1], ints[ptr][1]);
+            else{
+                ret.emplace_back(ints[ptr]);
+                ptr = i;
+            }
+            if(i == (n-1)) ret.emplace_back(ints[ptr]);
+        }
+        return ret;
+    }
+};
