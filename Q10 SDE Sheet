@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int a = 0;
+        int n = nums[a];
+        while(nums[n] != -1){
+            a = nums[n];
+            nums[n] = -1;
+            n = a;
+        }
+        return n;
+        
+        // return (accumulate(nums.begin(), nums.end(), 0))-((nums.size()-1)*nums.size()/2);
+    }
+};
