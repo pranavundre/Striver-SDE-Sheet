@@ -1,0 +1,26 @@
+class Solution {
+public:
+
+    void combn(vector<vector<int>> &ret, vector<int>& candidates, int i, int target, vector<int> temp){
+        if(target == 0){
+            ret.push_back(temp);
+            return;
+        }
+        if(i==candidates.size()) return;
+
+        if(target >= candidates[i]){
+            temp.push_back(candidates[i]);
+            combn(ret, candidates, i, target-candidates[i], temp);
+            temp.pop_back();
+        }
+        
+        combn(ret, candidates, i+1, target, temp);
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ret;
+        vector<int> temp;
+        combn(ret, candidates, 0, target, temp);
+        return ret;
+    }
+};
