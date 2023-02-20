@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void combn2(vector<vector<int>>& ret, vector<int> temp, vector<int>& candidates, int i, int target){
+        if(target == 0){
+            ret.push_back(temp);
+            return;
+        }
+        for(int a = i; a < candidates.size(); a++){
+            if(a>i && candidates[a]==candidates[a-1]) continue;
+            if(target < candidates[a]) break;
+            temp.push_back(candidates[a]);
+            combn2(ret, temp, candidates, a+1, target-candidates[a]);
+            temp.pop_back();
+        }
+    }
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> ret;
+        vector<int> temp;
+        combn2(ret, temp, candidates, 0, target);
+        return ret;
+    }
+};
