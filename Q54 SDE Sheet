@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string getPermutation(int n, int k){
+        vector<int> num;
+        int fact = 1;
+        for(int i=1; i<=n; i++){
+            num.push_back(i);
+            fact=fact*i;
+        }
+        k=k-1;
+        string ret = "";
+        while(k!=0){
+            fact = fact/num.size();
+            ret += to_string(num[k/fact]);
+            num.erase(num.begin() + k/fact);
+            k = k%fact;
+        }
+        while(k < num.size()) ret += to_string(num[k++]);
+        return ret;
+    }
+};
