@@ -1,0 +1,16 @@
+class Solution {
+public:
+    void permute(vector<vector<int>> &ret, vector<int> nums, int ind){
+        if(ind == nums.size()) ret.push_back(nums);
+        for(int i = ind; i < nums.size(); i++){
+            swap(nums[i], nums[ind]);
+            permute(ret, nums, ind+1);
+            swap(nums[i], nums[ind]);
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ret;
+        permute(ret, nums, 0);
+        return ret;
+    }
+};
