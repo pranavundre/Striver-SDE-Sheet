@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int countSmallerThanEqualToMid(vector<int> a, int mid){
+    int l = 0, h = a.size();
+    while(l < h){
+        int m = (l+h)/2;
+        if(a[m]<=mid) l = m+1;
+        else h = m;
+    }
+    return l;
+}
+
+int getMedian(vector<vector<int>> &matrix){
+    // Write your code here.
+    int l=0, h=INT_MAX;
+    while(l < h){
+        int cnt = 0, mid = (l+h)/2;
+        for(int i = 0; i < matrix.size(); i++)
+            cnt += countSmallerThanEqualToMid(matrix[i], mid);
+        if(cnt <= (matrix.size()*matrix[0].size())/2) l = mid+1;
+        else h = mid;
+    }
+    return l;
+}
