@@ -1,0 +1,64 @@
+/* Using priority queue */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> minHeap(int n, vector<vector<int>>& q) {
+    // Write your code here.
+    priority_queue<int, vector<int>, greater<int>> pq;
+    vector<int> ret;
+    for(int i = 0; i < n; i++){
+        if (q[i][0] == 1){
+            ret.push_back(pq.top());
+            pq.pop();
+        }else
+            pq.push(q[i][1]);
+    }
+    return ret;
+}
+
+--------------------------------------------------------------
+/* Creating insert and delete functions */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void del_min(vector<int> minH){
+    minH[0] = minH[minH.size()-1];
+    minH.pop_back();
+    if(minH.size() == 0) return;
+    int i = 0;
+    while(2*i+1 < minH.size()){
+        if(minH[i] > minH[2*i+1]){
+            swap(minH[i], minH[2*i+1]);
+        }
+        i = 2*i+1;
+    }
+}
+
+void insert(vector<int> &minH, int n){
+    minH.push_back(n);
+    if(minH.size() == 1) return;
+    int i = minH.size() - 1;
+    while(i>0 && (i-1)/2 >= 0){
+        if(minH[i] < minH[(i-1)/2]){
+            swap(minH[i], minH[(i-1)/2]);
+        }
+        i = (i-1)/2;
+    }
+}
+
+vector<int> minHeap(int n, vector<vector<int>>& q) {
+    // Write your code here.
+    vector<int> minH;
+    vector<int> min;
+    // minH.push_back(0);
+    for(int i = 0; i < n; i++){
+        if (q[i][0] == 1){
+            min.push_back(minH[0]);
+            del_min(minH);
+        }else
+            insert(minH, q[i][1]);
+    }
+    return min;
+}
