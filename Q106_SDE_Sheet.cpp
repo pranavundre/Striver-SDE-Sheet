@@ -25,8 +25,10 @@ public:
 };
 
 
+
 // Iterative
 
+// Using 2 Stacks
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
@@ -46,4 +48,35 @@ public:
         }
         return ret;
     }
+};
+
+// Using 1 Stack
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ret;
+        stack<TreeNode*> stk;
+        while(root || !stk.empty()){
+           if(root){
+               stk.emplace(root);
+               root = root->left;
+           }
+           else{
+               TreeNode* temp = stk.top()->right;
+               if(temp == NULL){
+                   temp = stk.top();
+                   stk.pop();
+                   ret.emplace_back(temp->val);
+                   while(!stk.empty() && temp==stk.top()->right){
+                       temp = stk.top();
+                       stk.pop();
+                       ret.emplace_back(temp->val);
+                   }
+               }
+               else root = temp;
+           }
+        }
+        return ret;
+    }
 }; 
+
